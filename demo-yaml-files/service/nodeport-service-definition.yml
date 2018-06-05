@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: myapp-service
+
+spec:
+  type: NodePort
+  ports:
+    - targetPort: 80     # port on pod, by default same with `port` if not specified
+      port: 80           # port on service, mandatory
+      nodePort: 30008    # port on vm node, by default a random port between 30000 - 32767 if not specified
+
+  selector:          # link this service to specific pod
+    app: myapp
+    type: front-end

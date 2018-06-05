@@ -1,0 +1,46 @@
+apiVersion: apps/v1
+kind: ReplicaSet
+metadata:
+  name: myapp-replicaset
+  labels:
+    app: myapp
+    type: front-end
+
+spec:
+  template: # define pod template
+    metadata:
+      name: myapp-pod
+      labels:              #only under labels can define cutomized fields, any key value pairs
+        app: myapp
+        type: front-end
+
+    spec:
+      containers:
+        - name: nginx-container
+          image: nginx
+
+  replicas: 3
+  selector:       #major difference with replication controller, match the labels of pods, decide which pods to be monitored
+    matchLabels:
+      type: front-end
+
+
+
+
+# commands
+# kubectl create -f replicaset-definition.yml
+# kubectl get replicaset
+# kubectl delete replicaset myapp-replicaset
+# kubectl replace -f replicaset-definition.yml
+# kubectl scale -replicas=6 -f replicaset-definition.yml
+# kubectl get pods -o wide
+
+
+
+
+
+# scale replica set
+# 1) updates `replica` value in this file, then run `kubectl replace -f replicaset-definition.yml`
+# 2) kubectl scale --replicas=6 -f replicaset-definition.yml
+# 3) kubectl scale --replicas=6 replicaset myapp-replicaset  #type:replicaset #name:myapp-replicaset
+

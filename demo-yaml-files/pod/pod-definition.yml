@@ -1,0 +1,16 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: myapp-pod
+  labels:              #only under labels can define cutomized fields, any key value pairs
+    app: myapp       
+    type: front-end
+
+spec:
+  containers:
+    - name: nginx-container
+      image: nginx
+
+
+# Command to create pod
+# kubectl create -f pod-definition.yml
